@@ -13,6 +13,7 @@ const MainNavigation = () => {
 
   const logoutHandler = () => {
     authCtx.logout();
+    localStorage.removeItem('token');
     history.replace('/auth');
   }
 
