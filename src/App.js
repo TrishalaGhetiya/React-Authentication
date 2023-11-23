@@ -10,6 +10,20 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 function App() {
   const authCtx = useContext(AuthContext);
+  var minutes = 5;
+  var now = new Date().getTime();
+  var setupTime = localStorage.getItem('setupTime');
+  if(setupTime == null){
+    localStorage.setItem('setupTime', now)
+  } else {
+    if(now-setupTime > minutes*60*1000){
+      localStorage.clear();
+      authCtx.logout();
+      localStorage.setItem('setupTime', now);
+    }
+  }
+
+  
   const isLoggedIn = authCtx.isLoggedIn;
   return (
     <Layout>
